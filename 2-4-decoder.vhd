@@ -16,18 +16,20 @@ end entity;
 architecture rtl of twofourdecoder is
     begin 
         process (en,a0,a1) is
-            begin
+            variable sel : std_logic_vector(1 downto 0);
+        begin
                 b0 <= '0';
                 b1 <= '0';
                 b2 <= '0';
                 b3 <= '0';
                 if(en = '1') then
-                    case (a1 & a0) is
+                    sel := a1&a0;
+                    case (sel) is
                         when "00" => b0 <= '1';
                         when "01" => b1 <= '1';
                         when "10" => b2 <= '1';
                         when "11" => b3 <= '1';
-                        when others => null;
+                        when others => b0 <= '0'; b1 <= '0'; b2 <= '0'; b3 <= '0';
                     end case;   
                 end if;
             end process;
